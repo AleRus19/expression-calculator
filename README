@@ -1,0 +1,9 @@
+# Expression Calculator
+
+A simple command-line calculator that evaluates mathematical expressions. It is based on the shunting yard algorithm: expressions are transformed from infix to postfix notation and then evaluated.
+
+## Features
+
+- Supports basic arithmetic operations: addition, subtraction, multiplication, division, exponentiation
+- Handles parentheses for grouping
+- Simple and easy to use

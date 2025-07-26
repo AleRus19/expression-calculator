@@ -10,7 +10,9 @@ public enum Associativity {
 public record OperatorPrecedenceRules(int Precedence, Associativity Associativity);
 
 public class ExpressionParser {
-    private Stack<char> _operatorStack;
+    private readonly Stack<char> _stack;
+    private readonly Stack<double> _evalStack;
+
 
     private Dictionary<char, OperatorPrecedenceRules> _rules =
         new()
@@ -23,7 +25,8 @@ public class ExpressionParser {
         };
 
     public ExpressionParser() {
-        _operatorStack = new Stack<char>();
+        _stack = new Stack<char>();
+        _evalStack = new Stack<double>();
     }
 
     public string ToPostfixNotation(string expr) {
@@ -33,7 +36,7 @@ public class ExpressionParser {
         var postfixNotation = new StringBuilder();
         foreach (var ch in trimmedExpr) {
             if (_rules.TryGetValue(ch, out var op)) {
-                while (_operatorStack.TryPeek(out var peek)) {
+                while (_stack.TryPeek(out var peek)) {
                     if (peek == '(') {
                         break;
                     }
@@ -44,31 +47,61 @@ public class ExpressionParser {
                             && _rules[peek].Associativity == Associativity.Left
                         )
                     ) {
-                        postfixNotation.Append(_operatorStack.Pop());
+                        postfixNotation.Append(_stack.Pop());
                     } else {
                         break;
                     }
                 }
-                _operatorStack.Push(ch);
+                _stack.Push(ch);
             } else {
                 if (ch == '(') {
-                    _operatorStack.Push(ch);
+                    _stack.Push(ch);
                 } else if (ch == ')') {
-                    while (_operatorStack.TryPeek(out var peek) && peek != '(') {
-                        postfixNotation.Append(_operatorStack.Pop());
+                    while (_stack.TryPeek(out var peek) && peek != '(') {
+                        postfixNotation.Append(_stack.Pop());
                     }
 
-                    _operatorStack.Pop();
+                    _stack.Pop();
                 } else {
                     postfixNotation.Append(ch);
                 }
             }
         }
 
-        while (_operatorStack.Count() > 0) {
-            postfixNotation.Append(_operatorStack.Pop());
+        while (_stack.Count() > 0) {
+            postfixNotation.Append(_stack.Pop());
         }
 
         return postfixNotation.ToString();
+    }
+
+
+    public double Evaluate(string expr) {
+        _stack.Clear();
+
+        var postfixNotation = ToPostfixNotation(expr);
+        foreach (var ch in postfixNotation) {
+            if (!_rules.TryGetValue(ch, out var op)) {
+                double.TryParse(ch.ToString(), out var number);
+
+                _evalStack.Push(number);
+            } else {
+                var a = _evalStack.Pop();
+                var b = _evalStack.Pop();
+
+                var res = ch switch {
+                    '+' => b + a,
+                    '-' => b - a,
+                    '*' => b * a,
+                    '/' => b / a,
+                    '^' => Math.Pow(b, a),
+                    _ => throw new NotSupportedException()
+                };
+
+                _evalStack.Push(res);
+            }
+        }
+
+        return _evalStack.Pop();
     }
 }

@@ -1,10 +1,12 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expression.Tool", "Expression.Tool\Expression.Tool.csproj", "{5D3F9ED8-CC9F-6E6F-27E5-69BA22BEA029}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expression.Parser", "Expression.Parser\Expression.Parser.csproj", "{FD53EE51-A34F-6355-003C-D006021662AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expression.Tests", "Expression.Tests\Expression.Tests.csproj", "{FA4D3E28-0495-44B6-994B-822A2D3E99DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{FD53EE51-A34F-6355-003C-D006021662AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD53EE51-A34F-6355-003C-D006021662AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD53EE51-A34F-6355-003C-D006021662AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4D3E28-0495-44B6-994B-822A2D3E99DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4D3E28-0495-44B6-994B-822A2D3E99DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4D3E28-0495-44B6-994B-822A2D3E99DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4D3E28-0495-44B6-994B-822A2D3E99DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

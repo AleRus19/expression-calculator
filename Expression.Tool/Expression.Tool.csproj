@@ -10,5 +10,5 @@
   <ItemGroup>
     <ProjectReference Include="../Expression.Parser/Expression.Parser.csproj" />
   </ItemGroup>
-
+  
 </Project>

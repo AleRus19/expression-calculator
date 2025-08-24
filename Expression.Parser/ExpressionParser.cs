@@ -1,28 +1,10 @@
-﻿using System.Text;
+﻿using Expression.Parser.Models;
 
 namespace Expression.Parser;
 
-public enum Associativity {
-    Left,
-    Right
-}
-
-public record OperatorPrecedenceRules(int Precedence, Associativity Associativity, Func<double, double, double> Func);
-
-public class ParserResult {
-    public List<string> Elements { get; set; } = [];
-
-    public override string ToString() {
-        var result = new StringBuilder();
-        foreach (var elem in Elements) {
-            result.Append(elem);
-        }
-        return result.ToString();
-    }
-}
-
 public class ExpressionParser {
     private readonly Stack<char> _stack;
+
     private readonly Stack<double> _evalStack;
 
     private readonly Dictionary<string, OperatorPrecedenceRules> _rules =
@@ -40,6 +22,7 @@ public class ExpressionParser {
         _evalStack = new Stack<double>();
     }
 
+    // Shunting Yard Algorithm
     public ParserResult Parse(string expr) {
         var result = new ParserResult();
 
@@ -106,7 +89,7 @@ public class ExpressionParser {
         var postfixNotation = Parse(expr);
         foreach (var elem in postfixNotation.Elements) {
             if (!_rules.TryGetValue(elem, out var op)) {
-                double.TryParse(elem, out var number);
+                _ = double.TryParse(elem, out var number);
 
                 _evalStack.Push(number);
             } else {

@@ -7,3 +7,25 @@ A simple command-line calculator that evaluates mathematical expressions. It is 
 - Supports basic arithmetic operations: addition, subtraction, multiplication, division, exponentiation
 - Handles parentheses for grouping
 - Simple and easy to use
+
+## Usage
+For evaluating expression:
+
+```bash
+dotnet run eval --e "2 ^ (3 + 1) / 2"
+```
+
+**Example Output:**
+```
+Result: 8
+```
+
+To convert an infix expression to RPN (Reverse Polish Notation):
+
+```bash
+dotnet run rpn --e "2 ^ (3 + 1) / 2"
+```
+
+**Example Output:**
+```
+231+^2/

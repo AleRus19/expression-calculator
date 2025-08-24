@@ -53,4 +53,11 @@ public class EvaluateTests {
 
         Assert.That(res, Is.EqualTo(11 + 1));
     }
+
+    [Test]
+    public void Test7() {
+        var res = expressionParser.Evaluate("(150 + 1) * 3");
+
+        Assert.That(res, Is.EqualTo((150 + 1) * 3));
+    }
 }
